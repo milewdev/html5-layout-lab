@@ -17,8 +17,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     install_osx_command_line_tools                      # needed by git
     install_gpg                                         # needed in order to sign git commits
     install_git                                         # source is on github
+    install_bundler                                     # used to install Sass
     install_editor
     install_project_source_code PROJECT_SOURCE_URL, PROJECT_VM_PATH
+    install_project_dependencies PROJECT_VM_PATH
     reboot_vm
   end
 end
@@ -93,6 +95,11 @@ class VagrantHelper
       run_script "cp /.vagrant_host_home/.gitconfig /Users/vagrant/.gitconfig"
     end
 
+    def install_bundler
+      say "Installing bundler"
+      run_script "sudo gem install bundler"
+    end
+
     def install_editor
       say "Installing editor (TextMate)"
       install_tar 'https://api.textmate.org/downloads/release'
@@ -101,6 +108,11 @@ class VagrantHelper
     def install_project_source_code(project_source_url, project_vm_path)
       say "Installing project source code"
       run_script "git clone #{project_source_url} #{project_vm_path}"
+    end
+
+    def install_project_dependencies(project_vm_path)
+      say "Install project dependencies"
+      run_script "( cd #{project_vm_path} && exec sudo bundle install )"
     end
 
     def reboot_vm
