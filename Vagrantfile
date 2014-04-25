@@ -146,7 +146,7 @@ class VagrantHelper
       run_tar_installer(cache_dir)
     end
 
-    def install_pkg(config, url)
+    def install_pkg(url)
       cache_dir = derive_cache_dir(url)
       download(url, cache_dir, "install.pkg")
       run_pkg_installer(cache_dir)
