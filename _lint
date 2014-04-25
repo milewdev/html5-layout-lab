@@ -23,13 +23,17 @@ echo '--------------------------------------------------------------------------
 # echo 'Check Travis CI config file .travis.yml ...'
 # QUIET=1 travis-lint
 
+SOURCE_FILES="_build _lint _watch Gemfile package.json reset.css script.coffee style.scss Vagrantfile"
+
 echo 'Check for tabs in source code files ...'
 # egrep -rn '\t' src/*.coffee test/*.coffee Vagrantfile
-egrep -rn '\t' Vagrantfile
+egrep -rn '\t' $SOURCE_FILES
 
-echo 'Check for trailing spaces in source code files ...'
+echo 'Check for trailing spaces in source files ...'
 # egrep -rn ' $' src/*.coffee test/*.coffee Vagrantfile
-egrep -rn ' $' Vagrantfile
+egrep -rn ' $' $SOURCE_FILES
 
 echo 'Check for git stashes ...'
 git stash list
+
+echo '--------------------------------------------------------------------------------'
