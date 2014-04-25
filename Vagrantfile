@@ -109,7 +109,7 @@ class VagrantHelper
     end
 
   private
-  
+
     def install_dmg(url, path, pkg)
       cache_dir = derive_cache_dir(url)
       download url, cache_dir, "install.dmg"
@@ -147,7 +147,7 @@ class VagrantHelper
         hdiutil detach #{path}
       EOF
     end
-    
+
     def run_tar_installer(cache_dir)
       run_script "sudo tar -x -C /Applications -f #{cache_dir[:guest_path]}/install.tar"
     end
@@ -167,7 +167,7 @@ class VagrantHelper
 
     # 'my product (v1)' => 'my\ product\ \(v1\)'
     def escape_shell_special_chars(string)
-      string.gsub(/([ ()])/, '\\\\\1')        
+      string.gsub(/([ ()])/, '\\\\\1')
     end
 
 end
