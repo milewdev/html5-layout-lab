@@ -136,14 +136,20 @@ class VagrantHelper
 
     def install_dmg(url, path, pkg)
       cache_dir = derive_cache_dir(url)
-      download url, cache_dir, "install.dmg"
-      run_pkg_installer(cache_dir, path, pkg)
+      download(url, cache_dir, "install.dmg")
+      run_dmg_installer(cache_dir, path, pkg)
     end
 
     def install_tar(url)
       cache_dir = derive_cache_dir(url)
-      download url, cache_dir, "install.tar"
+      download(url, cache_dir, "install.tar")
       run_tar_installer(cache_dir)
+    end
+
+    def install_pkg(config, url)
+      cache_dir = derive_cache_dir(url)
+      download(url, cache_dir, "install.pkg")
+      run_pkg_installer(cache_dir)
     end
 
     # The two cache paths point to the same physical directory, but one is used
@@ -162,7 +168,7 @@ class VagrantHelper
       run_script "curl -L --create-dirs -o #{cache_dir[:guest_path]}/#{filename} #{url}" unless File.exist?("#{cache_dir[:host_path]}/#{filename}")
     end
 
-    def run_pkg_installer(cache_dir, path, pkg)
+    def run_dmg_installer(cache_dir, path, pkg)
       path = '/Volumes/' + escape_shell_special_chars(path)
       pkg = escape_shell_special_chars(pkg)
       run_script <<-"EOF"
@@ -174,6 +180,10 @@ class VagrantHelper
 
     def run_tar_installer(cache_dir)
       run_script "sudo tar -x -C /Applications -f #{cache_dir[:guest_path]}/install.tar"
+    end
+    
+    def run_pkg_installer(cache_dir)
+      run_script "sudo installer -pkg #{cache_dir[:guest_path]}/install.pkg -target /"
     end
 
     # 'http://company.com/file2014.dmg' => 'http3A2F2Fcompany2Ecom2Ffile20142Edmg'
