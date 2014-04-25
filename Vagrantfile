@@ -17,7 +17,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     install_osx_command_line_tools                      # needed by git
     install_gpg                                         # needed in order to sign git commits
     install_git                                         # source is on github
+    install_node                                        # used to run coffeescript compiler, tests under node.js
     install_bundler                                     # used to install Sass
+    install_coffeescript PROJECT_VM_PATH                # site scripts are written in CoffeeScript
     install_editor
     install_project_source_code PROJECT_SOURCE_URL, PROJECT_VM_PATH
     install_project_dependencies PROJECT_VM_PATH
@@ -95,9 +97,19 @@ class VagrantHelper
       run_script "cp /.vagrant_host_home/.gitconfig /Users/vagrant/.gitconfig"
     end
 
+    def install_node
+      say "Installing nodejs"
+      install_pkg 'http://nodejs.org/dist/v0.10.26/node-v0.10.26.pkg'
+    end
+
     def install_bundler
       say "Installing bundler"
       run_script "sudo gem install bundler"
+    end
+    
+    def install_coffeescript(project_vm_path)
+      say "Installing CoffeeScript"
+      run_script "(cd #{project_vm_path} && exec npm install coffeescript)"
     end
 
     def install_editor
