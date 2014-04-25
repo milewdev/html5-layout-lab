@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# Start SASS in the background, in watch mode, and capture its PID.
+sass --watch style.scss:style.css 2>&1 > /dev/null &
+sass_pid=$!
+
+# When this shell exists, terminate SASS (BUG: will not work if signal 
+# sent before we reach this line).  The 'sleep 1' hack usually allows 
+# shell background process termination messages to appear before the 
+# shell prompt, rather than after, which makes it look like something
+# is still running.
+trap "kill -15 $sass_pid 2>&1 > /dev/null ; sleep 1 ; echo" EXIT
+
+# Display explanation and instructions.
+echo Sass is now watching for changes.
+echo Press Ctrl-C to stop.
+echo
+
+# Wait until Ctrl-C.  Redirecting output into /dev/null hides complaints
+# from the terminating processes.  Mostly.
+wait $sass_pid 2>&1 > /dev/null
