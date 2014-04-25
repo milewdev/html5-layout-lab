@@ -19,7 +19,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     install_git                                         # source is on github
     install_node                                        # used to run coffeescript compiler, tests under node.js
     install_bundler                                     # used to install Sass
-    install_coffeescript PROJECT_VM_PATH                # site scripts are written in CoffeeScript
     install_editor
     install_project_source_code PROJECT_SOURCE_URL, PROJECT_VM_PATH
     install_project_dependencies PROJECT_VM_PATH
@@ -107,11 +106,6 @@ class VagrantHelper
       run_script "sudo gem install bundler"
     end
     
-    def install_coffeescript(project_vm_path)
-      say "Installing CoffeeScript"
-      run_script "(cd #{project_vm_path} && exec npm install coffeescript)"
-    end
-
     def install_editor
       say "Installing editor (TextMate)"
       install_tar 'https://api.textmate.org/downloads/release'
@@ -125,6 +119,7 @@ class VagrantHelper
     def install_project_dependencies(project_vm_path)
       say "Install project dependencies"
       run_script "( cd #{project_vm_path} && exec sudo bundle install )"
+      run_script "( cd #{project_vm_path} && exec npm install coffee-script )"
     end
 
     def reboot_vm
