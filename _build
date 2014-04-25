@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+sass style.scss style.css
+node_modules/.bin/coffee --compile script.coffee
