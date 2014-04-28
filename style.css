@@ -1,1 +1,49 @@
 @import url(reset.css);
+body > header {
+  margin: 1em; }
+
+.lab {
+  border: 1px solid blue;
+  /* TODO: temporary */
+  min-height: 30em;
+  margin: 1em;
+  width: 40em; }
+
+.toolbox {
+  border: 1px solid blue;
+  /* TODO: temporary */
+  float: left;
+  margin: 2em;
+  width: 8em; }
+
+.workbench {
+  border: 1px solid blue;
+  /* TODO: temporary */
+  float: left;
+  min-height: 10em;
+  margin: 2em;
+  width: 20em; }
+
+.lab header, .workbench header {
+  border: 1px solid blue;
+  margin: 0.5em;
+  min-height: 1em; }
+
+.lab section, .workbench section {
+  border: 1px solid blue;
+  margin: 0.5em;
+  min-height: 1em;
+  padding: 0.5em; }
+
+.target {
+  border: 1px dashed #ccc;
+  margin: 0.5em;
+  min-height: 1em;
+  padding: 0.5em;
+  visibility: hidden; }
+
+.dragging {
+  box-shadow: 2px 2px 8px #999; }
+
+.drop-target {
+  background-color: #eeeeee; }
