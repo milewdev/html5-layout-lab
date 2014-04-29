@@ -1,49 +1,69 @@
 @import url(reset.css);
-body > header {
-  margin: 1em; }
+body {
+  font-family: "Palatino", "Lucida Grande", sans-serif;
+  font-weight: 100;
+  font-size: 100%; }
+  body > header {
+    margin: 1em; }
 
 .lab {
   border: 1px solid blue;
-  /* TODO: temporary */
-  min-height: 30em;
+  height: 1%;
+  /* HACK: clearfix */
   margin: 1em;
-  width: 40em; }
-
-.toolbox {
-  border: 1px solid blue;
-  /* TODO: temporary */
-  float: left;
-  margin: 2em;
-  width: 8em; }
-
-.workbench {
-  border: 1px solid blue;
-  /* TODO: temporary */
-  float: left;
-  min-height: 10em;
-  margin: 2em;
-  width: 20em; }
-
-.lab header, .workbench header {
-  border: 1px solid blue;
-  margin: 0.5em;
-  min-height: 1em; }
-
-.lab section, .workbench section {
-  border: 1px solid blue;
-  margin: 0.5em;
-  min-height: 1em;
-  padding: 0.5em; }
-
-.target {
-  border: 1px dashed #ccc;
-  margin: 0.5em;
-  min-height: 1em;
-  padding: 0.5em;
-  visibility: hidden; }
-
-.dragging {
-  box-shadow: 2px 2px 8px #999; }
-
-.drop-target {
-  background-color: #eeeeee; }
+  overflow: hidden;
+  /* HACK: clearfix */ }
+  .lab .toolbox {
+    border: 1px solid blue;
+    float: left;
+    margin: 2em;
+    padding-top: 0.5em;
+    /* HACK */
+    width: 8em; }
+  .lab .workbench {
+    border: 1px solid blue;
+    float: left;
+    min-height: 10em;
+    margin: 2em;
+    padding-top: 0.5em;
+    /* HACK */
+    width: 20em; }
+  .lab header {
+    border: 1px solid blue;
+    clear: both;
+    margin: 0.5em;
+    margin-top: 0em;
+    /* HACK */
+    min-height: 1em; }
+  .lab section {
+    border: 1px solid blue;
+    min-height: 5em;
+    margin: 0.5em;
+    margin-top: 0em;
+    /* HACK */
+    padding: 0.5em; }
+    .lab section.left-sidebar {
+      float: left;
+      width: 10%; }
+    .lab section.right-sidebar {
+      float: right;
+      width: 10%; }
+    .lab section.main {
+      overflow: hidden;
+      /* HACK */ }
+  .lab article {
+    border: 1px solid red;
+    min-height: 1em;
+    margin: 0.5em; }
+  .lab footer {
+    border: 1px solid blue;
+    clear: both;
+    margin: 0.5em;
+    min-height: 0.5em; }
+  .lab .target {
+    border: 1px dashed #ccc; }
+  .lab .dragging {
+    box-shadow: 2px 2px 8px #999;
+    min-width: 8em; }
+  .lab .hilight-target {
+    background-color: #eeeeee; }

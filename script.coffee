@@ -1,30 +1,81 @@
-draggable = { 
-  containment: ".lab", 
-  revert: true, 
-  revertDuration: 200,
-  start: -> 
-    $(this).addClass("dragging")
-    $( ".target" ).css("visibility", "visible")
-  stop: -> 
-    $(this).removeClass("dragging")
-    $( ".target" ).css("visibility", "hidden")
-}
-
-# drop must be defined before droppable so that the circular references work
-drop = (event, ui) ->
-  $( ui.draggable.data("html") )                        # create a new element from the draggable's html data, e.g. "<header></header>"
-    .appendTo(this)                                     # insert the new element into the current drop target
-  $(this).removeClass("drop-target")                    # TODO: remove from all child elements in the workbench
+removeTargets = ->
+  $( ".target" ).remove()
 
 droppable = {
-  greedy: true,
-  over: -> $(this).addClass("drop-target"),
-  out: -> $(this).removeClass("drop-target"),
-  drop: drop
+  over: ->
+    $(this).addClass("hilight-target")
+  out: ->
+    $(this).removeClass("hilight-target")
+  drop: ->
+    $(this)                                             # use target as the element being added:
+      .removeClass("target")                            # so that removeTargets() does not remove it
+      .removeClass("hilight-target")                    # because 'out' is not called when dropped
+      .droppable("disable")                             # no longer a drop target
 }
 
-$( ".toolbox header" ).data({ html: "<header></header>" })
-$( ".toolbox section" ).data({ html: "<section></section>" })
+draggable = {
+  containment: ".lab"
+  helper: ->
+    $(this).clone().addClass("dragging")                # drag a clone, leave original in toolbox for next time
+  stop: ->
+    removeTargets()                                     # remove targets added by 'start' method (see below)
+}
 
-$( ".toolbox header, .toolbox section" ).draggable(draggable)
-$( ".workbench" ).droppable(droppable)
+$( ".toolbox header" ).draggable(draggable).draggable({
+  start: (event, ui) ->
+    targetFactory = $(this).clone().addClass("target")
+    parents = $( ".workbench, .workbench > section, .workbench article" )   # the elements we are going to add targets under
+      .filter( -> $( "> header", this ).length == 0 )   # exlude elements that already have a header
+    parents.each ->
+      $(this).prepend( targetFactory.clone().droppable(droppable) )
+})
+
+$( ".toolbox footer" ).draggable(draggable).draggable({
+  start: ->
+    targetFactory = $(this).clone().addClass("target")
+    parents = $( ".workbench, .workbench > section" )   # the elements we are going to add targets under
+      .filter( -> $( "> footer", this ).length == 0 )   # exlude elements that already have a footer
+    parents.each ->
+      $(this).append( targetFactory.clone().droppable(droppable) )
+})
+
+$( ".toolbox section" ).draggable(draggable).draggable({
+  start: ->
+    insert_section_targets($(this))
+})
+
+$( ".toolbox article" ).draggable(draggable).draggable({
+  start: ->
+    targetFactory = $(this).clone().addClass("target")
+    $( ".workbench > section" ).each ->
+      footer = $( "footer", $(this) )[0]
+      target = targetFactory.clone().droppable(droppable)
+      if footer?
+        target.insertBefore(footer)
+      else
+        target.appendTo( $(this) )
+})
+
+# NOTE: order and placement of insertion critical; note use of prependTo() instead of appendTo(), etc.
+insert_section_targets = (source) ->
+  targetFactory = source.clone().addClass("target")
+  header = $( ".workbench > header" )[0]
+  footer = $( ".workbench > footer" )[0]
+  if $( ".workbench > .left-sidebar").length == 0
+    target = targetFactory.clone().addClass("left-sidebar").droppable(droppable)
+    if header?
+      target.insertAfter(header)
+    else
+      target.prependTo( $(".workbench") )
+  if $( ".workbench > .right-sidebar").length == 0
+    target = targetFactory.clone().addClass("right-sidebar").droppable(droppable)
+    if header?
+      target.insertAfter(header)
+    else
+      target.prependTo( $(".workbench") )
+  if $( ".workbench > .main").length == 0
+    target = targetFactory.clone().addClass("main").droppable(droppable)
+    if footer?
+      target.insertBefore(footer)
+    else
+      target.appendTo( $(".workbench") )

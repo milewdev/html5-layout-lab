@@ -1,56 +1,91 @@
 @import "reset.css";
 
-body > header {
-  margin: 1em;
+body {
+  font-family: "Palatino", "Lucida Grande", sans-serif;
+  font-weight: 100;
+  font-size: 100%;
+  
+  & > header {
+    margin: 1em;
+  }
 }
 
 .lab {
-  border: 1px solid blue;              /* TODO: temporary */
-  min-height: 30em;
+  border: 1px solid blue;
+  height: 1%;                           /* HACK: clearfix */
   margin: 1em;
-  width: 40em;
-}
+  overflow: hidden;                     /* HACK: clearfix */
 
-.toolbox {
-  border: 1px solid blue;             /* TODO: temporary */
-  float: left;
-  margin: 2em;
-  width: 8em;
-}
+  .toolbox {
+    border: 1px solid blue;
+    float: left;
+    margin: 2em;
+    padding-top: 0.5em;                 /* HACK */
+    width: 8em;
+  }
 
-.workbench {
-  border: 1px solid blue;             /* TODO: temporary */
-  float: left;
-  min-height: 10em;
-  margin: 2em;
-  width: 20em;
-}
+  .workbench {
+    border: 1px solid blue;
+    float: left;
+    min-height: 10em;
+    margin: 2em;
+    padding-top: 0.5em;                 /* HACK */
+    width: 20em;
+  }
 
-.lab header, .workbench header {
-  border: 1px solid blue;
-  margin: 0.5em;
-  min-height: 1em;
-}
+  header {
+    border: 1px solid blue;
+    clear: both;
+    margin: 0.5em;
+    margin-top: 0em;                    /* HACK */
+    min-height: 1em;
+  }
 
-.lab section, .workbench section {
-  border: 1px solid blue;
-  margin: 0.5em;
-  min-height: 1em;
-  padding: 0.5em;
-}
+  section {
+    border: 1px solid blue;
+    min-height: 5em;
+    margin: 0.5em;
+    margin-top: 0em;                    /* HACK */
+    padding: 0.5em;
+    
+    &.left-sidebar {
+      float: left;
+      width: 10%;
+    }
+    
+    &.right-sidebar {
+      float: right;
+      width: 10%;
+    }
+    
+    &.main {
+      overflow: hidden;                 /* HACK */
+    }
+  }
+  
+  article {
+    border: 1px solid red;
+    min-height: 1em;
+    margin: 0.5em;
+  }
 
-.target {
-  border: 1px dashed #ccc;
-  margin: 0.5em;
-  min-height: 1em;
-  padding: 0.5em;
-  visibility: hidden;
-}
+  footer {
+    border: 1px solid blue;
+    clear: both;
+    margin: 0.5em;
+    min-height: 0.5em;
+  }
 
-.dragging {
-  box-shadow: 2px 2px 8px #999;
-}
+  .target {
+    border: 1px dashed #ccc;
+  }
 
-.drop-target {
-  background-color: #eeeeee;
+  .dragging {
+    box-shadow: 2px 2px 8px #999;
+    min-width: 8em;
+  }
+
+  .hilight-target {
+    background-color: #eeeeee;
+  }
 }

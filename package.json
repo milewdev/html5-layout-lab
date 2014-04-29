@@ -18,8 +18,5 @@
   "homepage": "https://github.com/milewgit/html5-layout-lab",
   "devDependencies": {
     "coffee-script": "^1.7.1"
-  },
-  "dependencies": {
-    "underscore": "^1.6.0"
   }
 }
