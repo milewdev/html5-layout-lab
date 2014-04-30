@@ -1,4 +1,4 @@
-removeTargets = ->
+remove_targets = ->
   $( ".target" ).remove()
 
 droppable = {
@@ -8,7 +8,7 @@ droppable = {
     $(this).removeClass("hilight-target")
   drop: ->
     $(this)                                             # use target as the element being added:
-      .removeClass("target")                            # so that removeTargets() does not remove it
+      .removeClass("target")                            # so that remove_targets() does not remove it
       .removeClass("hilight-target")                    # because 'out' is not called when dropped
       .droppable("disable")                             # no longer a drop target
 }
@@ -18,7 +18,8 @@ draggable = {
   helper: ->
     $(this).clone().addClass("dragging")                # drag a clone, leave original in toolbox for next time
   stop: ->
-    removeTargets()                                     # remove targets added by 'start' method (see below)
+    remove_targets()                                    # remove targets added by 'start' method (see below)
+    generate_html()
 }
 
 $( ".toolbox header" ).draggable(draggable).draggable({
@@ -79,3 +80,25 @@ insert_section_targets = (source) ->
       target.insertBefore(footer)
     else
       target.appendTo( $(".workbench") )
+
+generate_html = ->
+  code = tree($(".workbench"), "    ")
+  $( ".html-code pre" ).text( """
+<html>
+
+  <head>
+  </head>
+  
+  <body>
+#{code}  </body>
+  
+</html>
+""" )
+
+tree = (root, indent) ->
+  tagName = root.prop('tagName').toLowerCase()
+  code = "#{indent}<#{tagName}>" + "\n"
+  for child in root.children()
+    code += tree($(child), "  " + indent) 
+  code += "#{indent}</#{tagName}>" + "\n"
+  code

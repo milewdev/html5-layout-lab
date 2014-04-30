@@ -4,13 +4,16 @@ body {
   font-weight: 100;
   font-size: 100%; }
   body > header {
-    margin: 1em; }
+    border: 1px solid white;
+    padding: 0.4em;
+    /* HACK: have to use padding instead of margin */ }
 
 .lab {
   border: 1px solid blue;
+  float: left;
   height: 1%;
   /* HACK: clearfix */
-  margin: 1em;
+  margin: 0.5em;
   overflow: hidden;
   /* HACK: clearfix */ }
   .lab .toolbox {
@@ -67,3 +70,14 @@ body {
     min-width: 8em; }
   .lab .hilight-target {
     background-color: #eeeeee; }
+
+.html-code {
+  border: 1px solid blue;
+  margin: 0.5em;
+  height: 1%;
+  /* HACK: clearfix */
+  min-height: 5em;
+  overflow: hidden; }
+  .html-code pre {
+    font-family: "Courier New", monospace;
+    font-size: 80%; }
