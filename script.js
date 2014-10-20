@@ -112,7 +112,7 @@
   generate_html = function() {
     var code;
     code = tree($(".workbench"), "    ");
-    return $(".html-code pre").text("<html>\n\n  <head>\n  </head>\n  \n  <body>\n" + code + "  </body>\n  \n</html>");
+    return $(".html-code pre").text("<html>\n\n  <head>\n  </head>\n\n  <body>\n" + code + "  </body>\n\n</html>");
   };
 
   tree = function(root, indent) {

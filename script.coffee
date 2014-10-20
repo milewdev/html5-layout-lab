@@ -88,10 +88,10 @@ generate_html = ->
 
   <head>
   </head>
-  
+
   <body>
 #{code}  </body>
-  
+
 </html>
 """ )
 
@@ -99,6 +99,6 @@ tree = (root, indent) ->
   tagName = root.prop('tagName').toLowerCase()
   code = "#{indent}<#{tagName}>" + "\n"
   for child in root.children()
-    code += tree($(child), "  " + indent) 
+    code += tree($(child), "  " + indent)
   code += "#{indent}</#{tagName}>" + "\n"
   code

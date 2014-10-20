@@ -8,10 +8,10 @@ SASS_PID=$!
 node_modules/.bin/coffee --watch --compile script.coffee 2>&1 > /dev/null &
 COFFEE_PID=$!
 
-# When this shell exists, terminate the background processes (BUG: will 
-# not work if signal sent before we reach this line).  The 'sleep 1' 
-# hack usually allows shell background process termination messages to 
-# appear before the shell prompt, rather than after, which makes it 
+# When this shell exists, terminate the background processes (BUG: will
+# not work if signal sent before we reach this line).  The 'sleep 1'
+# hack usually allows shell background process termination messages to
+# appear before the shell prompt, rather than after, which makes it
 # look like something is still running.
 trap "kill -15 $SASS_PID $COFFEE_PID 2>&1 > /dev/null ; sleep 1 ; echo" EXIT
 

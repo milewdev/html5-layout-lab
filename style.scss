@@ -4,7 +4,7 @@ body {
   font-family: "Palatino", "Lucida Grande", sans-serif;
   font-weight: 100;
   font-size: 100%;
-  
+
   & > header {
     border: 1px solid white;
     padding: 0.4em;                     /* HACK: have to use padding instead of margin */
@@ -49,22 +49,22 @@ body {
     margin: 0.5em;
     margin-top: 0em;                    /* HACK */
     padding: 0.5em;
-    
+
     &.left-sidebar {
       float: left;
       width: 10%;
     }
-    
+
     &.right-sidebar {
       float: right;
       width: 10%;
     }
-    
+
     &.main {
       overflow: hidden;                 /* HACK */
     }
   }
-  
+
   article {
     border: 1px solid red;
     min-height: 1em;
@@ -98,7 +98,7 @@ body {
   height: 1%;                           /* HACK: clearfix */
   min-height: 5em;
   overflow: hidden;
-  
+
   pre {
     font-family: "Courier New", monospace;
     font-size: 80%;
