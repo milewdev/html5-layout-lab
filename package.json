@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/milewgit/html5-layout-lab.git"
+    "url": "https://github.com/milewdev/html5-layout-lab.git"
   },
-  "author": "milewgit",
+  "author": "milewdev",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/milewgit/html5-layout-lab/issues"
+    "url": "https://github.com/milewdev/html5-layout-lab/issues"
   },
-  "homepage": "https://github.com/milewgit/html5-layout-lab",
+  "homepage": "https://github.com/milewdev/html5-layout-lab",
   "devDependencies": {
     "coffee-script": "^1.7.1"
   }
